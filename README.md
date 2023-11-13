@@ -1,6 +1,6 @@
-# Project Template README
+# Trilobite XMock Libraries - C
 
-Welcome to the **Project Template** repository! This README provides user-friendly instructions for setting up, compiling, testing, and running a project using the Meson build system on Windows, macOS, and Linux systems. Please note that the Meson build system is required for successfully building this project.
+Welcome to Trilobite XMock, the cutting-edge mocking framework crafted with precision in the laboratory to streamline and enhance your C and C++ test cases. Developed with a straightforward objective – to provide powerful and efficient mocks – Trilobite XMock stands as a testament to simplicity, reliability, and seamless integration into your testing workflow.
 
 ## Who is This For?
 
@@ -21,8 +21,8 @@ Before getting started, make sure you have the following installed:
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/dreamer-coding-555/meson-lib-c.git
-   cd meson-lib-c
+   git clone https://github.com/trilobite-stdlib/trilo-xmock-c.git
+   cd trilo-xmock-c
    ```
 
 2. **Configure the Build**:
@@ -55,11 +55,11 @@ meson setup builddir -Dwith_demo=enabled -Dwith_test=enabled
 
 ## Contributing
 
-If you're interested in contributing to this project, please consider opening pull requests or creating issues on the [GitHub repository](https://github.com/dreamer-coding-555/meson-lib-c). Be sure to read the documentation on the [project website](https://trilobite.home.blog).
+If you're interested in contributing to this project, please consider opening pull requests or creating issues on the [GitHub repository](https://github.com/trilobite-stdlib/trilo-xmock-c). Be sure to read the documentation on the [project website](https://trilobite.home.blog).
 
 ## Feedback and Support
 
-If you encounter any issues, have questions, or would like to provide feedback, don't hesitate to open an issue on the [GitHub repository](https://github.com/dreamer-coding-555/meson-lib-c/issues).
+If you encounter any issues, have questions, or would like to provide feedback, don't hesitate to open an issue on the [GitHub repository](https://github.com/trilobite-stdlib/trilo-xmock-c/issues).
 
 ## License
 
