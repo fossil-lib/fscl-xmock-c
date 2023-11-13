@@ -3,6 +3,6 @@ if get_option('with_demo').enabled()
         'prog']
 
     foreach iter : demo_apps
-        executable('demo_' + iter, 'demo_' + iter + '.c', dependencies : [trilo_c_dep])
+        executable('demo_' + iter, 'demo_' + iter + '.c', dependencies : [trilo_xmock_c_dep])
     endforeach
 endif
