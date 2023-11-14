@@ -66,7 +66,7 @@ XTEST_CASE(test_xmock_spy_destroy) {
     xmock_spy_destroy(spy);
 
     // Ensure that spy is destroyed (double destruction should not crash)
-    TEST_ASSERT_NULL(spy);
+    TEST_ASSERT_NULL_PTR(spy);
 }
 
 //
