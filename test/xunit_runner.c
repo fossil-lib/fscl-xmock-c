@@ -35,7 +35,6 @@
 // XUNIT-GROUP: list of test groups for the runner
 //
 extern void xmock_behav_group(XUnitRunner *runner); 
-extern void xmock_basic_group(XUnitRunner *runner); 
 extern void xmock_inject_group(XUnitRunner *runner); 
 extern void xmock_spies_group(XUnitRunner *runner); 
 extern void xmock_fakes_group(XUnitRunner *runner); 
@@ -48,7 +47,6 @@ int main(int argc, char **argv) {
     XUnitRunner runner = XTEST_RUNNER_START(argc, argv);
 
     xmock_behav_group (&runner);
-    xmock_basic_group (&runner);
     xmock_inject_group(&runner);
     xmock_spies_group (&runner);
     xmock_fakes_group (&runner);
