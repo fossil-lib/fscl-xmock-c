@@ -9,7 +9,6 @@ if get_option('with_test').enabled()
         'xtest_spy.c',
         'xtest_fake.c',
         'xtest_behavior.c',
-        'xtest_cases.c',
         'xunit_runner.c')
 
     test('Execute project Xunit tests', 
