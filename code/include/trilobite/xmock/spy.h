@@ -37,36 +37,64 @@
 
    (Apache License 2.0: http://www.apache.org/licenses/LICENSE-2.0)
 */
-#ifndef TRILOBITE_MOD_H
-#define TRILOBITE_MOD_H
+#ifndef TRILOBITE_XMOCK_SPY_H
+#define TRILOBITE_XMOCK_SPY_H
+
+#ifdef __cplusplus
+#include <cstdlib>
+#include <cstdio>
+#else
+#include <stdlib.h>
+#include <stdio.h>
+#endif
 
 #ifdef __cplusplus
 extern "C"
 {
 #endif
 
-/**
- * Adds two integers.
- *
- * This function takes two integer values, 'a' and 'b', and returns their sum.
- *
- * @param a The first integer.
- * @param b The second integer.
- * @return The sum of 'a' and 'b'.
- */
-int add(int a, int b);
+// Structure to store information about function calls
+typedef struct {
+    int callCount;
+} XMockSpy;
 
 /**
- * Subtracts one integer from another.
+ * @brief Creates a new instance of XMockSpy.
  *
- * This function takes two integer values, 'a' and 'b', and returns the result of
- * subtracting 'b' from 'a'.
+ * This function allocates memory for a new XMockSpy and initializes its fields.
  *
- * @param a The integer from which 'b' will be subtracted.
- * @param b The integer to subtract from 'a'.
- * @return The result of 'a' - 'b'.
+ * @return A pointer to the newly created XMockSpy instance.
  */
-int subtract(int a, int b);
+XMockSpy* xmock_spy_create(void);
+
+/**
+ * @brief Records a call in the XMockSpy.
+ *
+ * This function is used to record the occurrence of a function call in the spy.
+ * It increments the call count of the spy, providing a way to track the number of calls.
+ *
+ * @param spy A pointer to the XMockSpy in which to record a call.
+ */
+void xmock_spy_record_call(XMockSpy* spy);
+
+/**
+ * @brief Gets the call count from the XMockSpy.
+ *
+ * This function retrieves the total number of recorded calls in the XMockSpy.
+ *
+ * @param spy A pointer to the XMockSpy from which to retrieve the call count.
+ * @return The number of calls recorded in the XMockSpy.
+ */
+int xmock_spy_get_call_count(XMockSpy* spy);
+
+/**
+ * @brief Destroys an instance of XMockSpy.
+ *
+ * This function frees the memory allocated for the XMockSpy instance.
+ *
+ * @param spy A pointer to the XMockSpy instance to destroy.
+ */
+void xmock_spy_destroy(XMockSpy* spy);
 
 #ifdef __cplusplus
 }

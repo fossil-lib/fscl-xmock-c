@@ -32,61 +32,57 @@
 #include <trilobite/xtest.h>   // basic test tools
 #include <trilobite/xassert.h> // extra asserts
 
-#include <trilobite/xmock.h> // library under test
-
-// Mock function for testing
-XMOCK_FUNC_DEF(int, add, int a, int b) {
-    return a + b;
-}
-
-// Type alias for testing
-XMOCK_TYPE_ALIAS(MyInt, int);
-
-// Mock struct for testing
-XMOCK_STRUCT_DEF(Point, int x, int y);
+#include <trilobite/xmock/stub.h> // library under test
 
 //
 // XUNIT-CASES: list of test cases testing project features
 //
-XTEST_CASE(test_mock_function) {
-    // Arrange
-    int expected_result = 5;
 
-    // Act
-    int result = xmock_add(2, 3);
+// Test case for xmock_stub_create function
+XTEST_CASE(test_xmock_stub_create) {
+    XMockStub* stub = xmock_stub_create();
 
-    // Assert
-    TEST_ASSERT_EQUAL_INT(expected_result, result);
+    // Verify that the created stub is not NULL
+    TEST_ASSERT_NOT_NULL_PTR(stub);
+
+    // Clean up
+    xmock_stub_destroy(stub);
 }
 
-XTEST_CASE(test_type_alias) {
-    // Arrange
-    int original_value = 42;
+// Test case for xmock_stub_set_response and xmock_stub_get_response functions
+XTEST_CASE(test_xmock_stub_set_get_response) {
+    XMockStub* stub = xmock_stub_create();
 
-    // Act
-    MyInt aliased_value = xmock_MyInt();
+    // Set a predefined response
+    xmock_stub_set_response(stub, 42);
 
-    // Assert
-    TEST_ASSERT_EQUAL_INT(original_value, aliased_value);
+    // Get and verify the predefined response
+    int response = xmock_stub_get_response(stub);
+    TEST_ASSERT_EQUAL_INT(42, response);
+
+    // Clean up
+    xmock_stub_destroy(stub);
 }
 
-XTEST_CASE(test_mock_struct) {
-    // Arrange
-    Point p = {1, 2};
+// Test case for xmock_stub_destroy function
+XTEST_CASE(test_xmock_stub_destroy) {
+    XMockStub* stub = xmock_stub_create();
 
-    // Act
-    xmock_Point mock_point = {3, 4};
+    // Verify that the created stub is not NULL before destruction
+    TEST_ASSERT_NOT_NULL_PTR(stub);
 
-    // Assert
-    TEST_ASSERT_EQUAL_INT(p.x, mock_point.x);
-    TEST_ASSERT_EQUAL_INT(p.y, mock_point.y);
+    // Destroy the stub
+    xmock_stub_destroy(stub);
+
+    // Verify that the stub is NULL after destruction
+    TEST_ASSERT_NULL_PTR(stub);
 }
 
 //
 // XUNIT-GROUP: a group of test cases from the current test file
 //
 void basic_group(XUnitRunner *runner) {
-    XTEST_RUN_UNIT(test_mock_function, runner);
-    XTEST_RUN_UNIT(test_type_alias,    runner);
-    XTEST_RUN_UNIT(test_mock_struct,   runner);
+    XTEST_RUN_UNIT(test_xmock_stub_create,           runner);
+    XTEST_RUN_UNIT(test_xmock_stub_set_get_response, runner);
+    XTEST_RUN_UNIT(test_xmock_stub_destroy,          runner);
 } // end of fixture

@@ -32,61 +32,59 @@
 #include <trilobite/xtest.h>   // basic test tools
 #include <trilobite/xassert.h> // extra asserts
 
-#include <trilobite/xmock.h> // library under test
-
-// Mock function for testing
-XMOCK_FUNC_DEF(int, add, int a, int b) {
-    return a + b;
-}
-
-// Type alias for testing
-XMOCK_TYPE_ALIAS(MyInt, int);
-
-// Mock struct for testing
-XMOCK_STRUCT_DEF(Point, int x, int y);
+#include <trilobite/xmock/behavior.h> // library under test
 
 //
 // XUNIT-CASES: list of test cases testing project features
 //
-XTEST_CASE(test_mock_function) {
-    // Arrange
-    int expected_result = 5;
 
-    // Act
-    int result = xmock_add(2, 3);
-
-    // Assert
-    TEST_ASSERT_EQUAL_INT(expected_result, result);
+// Test for xmock_behavior_create
+XTEST_CASE(xmock_behavior_create_object) {
+    XMockBehavior* behavior = xmock_behavior_create();
+    TEST_ASSERT_NOT_NULL(behavior);
+    xmock_behavior_destroy(behavior);
 }
 
-XTEST_CASE(test_type_alias) {
-    // Arrange
-    int original_value = 42;
+// Test for xmock_behavior_expect_call_count and xmock_behavior_verify
+XTEST_CASE(xmock_behavior_expect_and_verify) {
+    XMockBehavior* behavior = xmock_behavior_create();
 
-    // Act
-    MyInt aliased_value = xmock_MyInt();
+    // Set the expected call count
+    int expectedCalls = 3;
+    xmock_behavior_expect_call_count(behavior, expectedCalls);
 
-    // Assert
-    TEST_ASSERT_EQUAL_INT(original_value, aliased_value);
+    // Record calls and verify behavior
+    for (int i = 0; i < expectedCalls; i++) {
+        xmock_behavior_record_call(behavior);
+    }
+
+    // Verify that the expected calls match the actual calls
+    xmock_behavior_verify(behavior);
+
+    xmock_behavior_destroy(behavior);
 }
 
-XTEST_CASE(test_mock_struct) {
-    // Arrange
-    Point p = {1, 2};
+// Test for xmock_behavior_expect_call_count with incorrect number of calls
+XTEST_CASE(xmock_behavior_expect_call_count_mismatch) {
+    XMockBehavior* behavior = xmock_behavior_create();
 
-    // Act
-    xmock_Point mock_point = {3, 4};
+    // Set the expected call count
+    int expectedCalls = 3;
+    xmock_behavior_expect_call_count(behavior, expectedCalls);
 
-    // Assert
-    TEST_ASSERT_EQUAL_INT(p.x, mock_point.x);
-    TEST_ASSERT_EQUAL_INT(p.y, mock_point.y);
+    // Record fewer calls than expected
+    for (int i = 0; i < expectedCalls - 1; i++) {
+        xmock_behavior_record_call(behavior);
+    }
+
+    xmock_behavior_destroy(behavior);
 }
 
 //
 // XUNIT-GROUP: a group of test cases from the current test file
 //
 void basic_group(XUnitRunner *runner) {
-    XTEST_RUN_UNIT(test_mock_function, runner);
-    XTEST_RUN_UNIT(test_type_alias,    runner);
-    XTEST_RUN_UNIT(test_mock_struct,   runner);
+    XTEST_RUN_UNIT(xmock_behavior_create_object, runner);
+    XTEST_RUN_UNIT(xmock_behavior_expect_and_verify, runner);
+    XTEST_RUN_UNIT(xmock_behavior_expect_call_count_mismatch, runner);
 } // end of fixture

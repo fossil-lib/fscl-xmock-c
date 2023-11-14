@@ -32,61 +32,48 @@
 #include <trilobite/xtest.h>   // basic test tools
 #include <trilobite/xassert.h> // extra asserts
 
-#include <trilobite/xmock.h> // library under test
-
-// Mock function for testing
-XMOCK_FUNC_DEF(int, add, int a, int b) {
-    return a + b;
-}
-
-// Type alias for testing
-XMOCK_TYPE_ALIAS(MyInt, int);
-
-// Mock struct for testing
-XMOCK_STRUCT_DEF(Point, int x, int y);
+#include <trilobite/xmock/spy.h> // library under test
 
 //
 // XUNIT-CASES: list of test cases testing project features
 //
-XTEST_CASE(test_mock_function) {
-    // Arrange
-    int expected_result = 5;
 
-    // Act
-    int result = xmock_add(2, 3);
-
-    // Assert
-    TEST_ASSERT_EQUAL_INT(expected_result, result);
+// Test case for xmock_spy_create
+XTEST_CASE(test_xmock_spy_create) {
+    XMockSpy* spy = xmock_spy_create();
+    TEST_ASSERT_NOT_NULL_PTR(spy);
+    xmock_spy_destroy(spy); // Cleanup
 }
 
-XTEST_CASE(test_type_alias) {
-    // Arrange
-    int original_value = 42;
+// Test case for xmock_spy_record_call and xmock_spy_get_call_count
+XTEST_CASE(test_xmock_spy_record_and_get_call_count) {
+    XMockSpy* spy = xmock_spy_create();
+    TEST_ASSERT_NOT_NULL_PTR(spy);
 
-    // Act
-    MyInt aliased_value = xmock_MyInt();
+    // Record calls and verify call count
+    xmock_spy_record_call(spy);
+    xmock_spy_record_call(spy);
+    TEST_ASSERT_EQUAL_INT(2, xmock_spy_get_call_count(spy));
 
-    // Assert
-    TEST_ASSERT_EQUAL_INT(original_value, aliased_value);
+    xmock_spy_destroy(spy); // Cleanup
 }
 
-XTEST_CASE(test_mock_struct) {
-    // Arrange
-    Point p = {1, 2};
+// Test case for xmock_spy_destroy
+XTEST_CASE(test_xmock_spy_destroy) {
+    XMockSpy* spy = xmock_spy_create();
+    TEST_ASSERT_NOT_NULL(spy);
 
-    // Act
-    xmock_Point mock_point = {3, 4};
+    xmock_spy_destroy(spy);
 
-    // Assert
-    TEST_ASSERT_EQUAL_INT(p.x, mock_point.x);
-    TEST_ASSERT_EQUAL_INT(p.y, mock_point.y);
+    // Ensure that spy is destroyed (double destruction should not crash)
+    TEST_ASSERT_NULL(spy);
 }
 
 //
 // XUNIT-GROUP: a group of test cases from the current test file
 //
 void basic_group(XUnitRunner *runner) {
-    XTEST_RUN_UNIT(test_mock_function, runner);
-    XTEST_RUN_UNIT(test_type_alias,    runner);
-    XTEST_RUN_UNIT(test_mock_struct,   runner);
+    XTEST_RUN_UNIT(test_xmock_spy_create,                    runner);
+    XTEST_RUN_UNIT(test_xmock_spy_record_and_get_call_count, runner);
+    XTEST_RUN_UNIT(test_xmock_spy_destroy,                   runner);
 } // end of fixture

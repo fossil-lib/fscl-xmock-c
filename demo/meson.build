@@ -1,6 +1,6 @@
 if get_option('with_demo').enabled()
     demo_apps = [
-        'prog']
+        'stub', 'inject', 'spy', 'fake', 'behaviour']
 
     foreach iter : demo_apps
         executable('demo_' + iter, 'demo_' + iter + '.c', dependencies : [trilo_xmock_c_dep])

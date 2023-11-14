@@ -32,61 +32,63 @@
 #include <trilobite/xtest.h>   // basic test tools
 #include <trilobite/xassert.h> // extra asserts
 
-#include <trilobite/xmock.h> // library under test
-
-// Mock function for testing
-XMOCK_FUNC_DEF(int, add, int a, int b) {
-    return a + b;
-}
-
-// Type alias for testing
-XMOCK_TYPE_ALIAS(MyInt, int);
-
-// Mock struct for testing
-XMOCK_STRUCT_DEF(Point, int x, int y);
+#include <trilobite/xmock/inject.h> // library under test
 
 //
 // XUNIT-CASES: list of test cases testing project features
 //
-XTEST_CASE(test_mock_function) {
+XTEST_CASE(test_xmock_inject_create_dependency) {
     // Arrange
-    int expected_result = 5;
+    XMockDependency* dependency;
 
     // Act
-    int result = xmock_add(2, 3);
+    dependency = xmock_inject_create_dependency();
 
     // Assert
-    TEST_ASSERT_EQUAL_INT(expected_result, result);
+    TEST_ASSERT_NOT_NULL_PTR(dependency);
+
+    // Clean up
+    xmock_inject_destroy_dependency(dependency);
 }
 
-XTEST_CASE(test_type_alias) {
+XTEST_CASE(test_xmock_inject_set_dependency_properties) {
     // Arrange
-    int original_value = 42;
+    XMockDependency* dependency = xmock_inject_create_dependency();
+    int expectedValue = 42;
 
     // Act
-    MyInt aliased_value = xmock_MyInt();
+    xmock_inject_set_dependency_properties(dependency, expectedValue);
 
     // Assert
-    TEST_ASSERT_EQUAL_INT(original_value, aliased_value);
+    TEST_ASSERT_EQUAL_INT(expectedValue, dependency->dependencyValue);
+
+    // Clean up
+    xmock_inject_destroy_dependency(dependency);
 }
 
-XTEST_CASE(test_mock_struct) {
+XTEST_CASE(test_xmock_inject_create_system_and_perform_operation) {
     // Arrange
-    Point p = {1, 2};
+    XMockDependency* dependency = xmock_inject_create_dependency();
+    XMockSystem* system;
+    int expectedResult = 84;
 
     // Act
-    xmock_Point mock_point = {3, 4};
+    system = xmock_inject_create_system(dependency);
+    int result = xmock_inject_perform_operation(system);
 
     // Assert
-    TEST_ASSERT_EQUAL_INT(p.x, mock_point.x);
-    TEST_ASSERT_EQUAL_INT(p.y, mock_point.y);
+    TEST_ASSERT_EQUAL_INT(expectedResult, result);
+
+    // Clean up
+    xmock_inject_destroy_system(system);
+    xmock_inject_destroy_dependency(dependency);
 }
 
 //
 // XUNIT-GROUP: a group of test cases from the current test file
 //
 void basic_group(XUnitRunner *runner) {
-    XTEST_RUN_UNIT(test_mock_function, runner);
-    XTEST_RUN_UNIT(test_type_alias,    runner);
-    XTEST_RUN_UNIT(test_mock_struct,   runner);
+    XTEST_RUN_UNIT(test_xmock_inject_create_dependency,                   runner);
+    XTEST_RUN_UNIT(test_xmock_inject_set_dependency_properties,           runner);
+    XTEST_RUN_UNIT(test_xmock_inject_create_system_and_perform_operation, runner);
 } // end of fixture
