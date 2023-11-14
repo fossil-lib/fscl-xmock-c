@@ -1,10 +1,10 @@
 /*  ----------------------------------------------------------------------------
-    File: xunit_runner.c
+    File: demo.c
 
     Description:
-    This test file contains unit tests for the various functions and utilities provided
-    by the Trilobite Stdlib. These tests ensure the correctness and reliability of the
-    library's components and demonstrate their intended usage.
+    This demo file serves as a showcase of the Trilobite Stdlib in action. It provides
+    example code snippets and usage scenarios to help users understand how to leverage
+    the library's features and functions in their own projects.
 
     Author: Michael Gene Brockus (Dreamer)
     Email: michaelbrockus@gmail.com
@@ -29,28 +29,26 @@
     (Apache License 2.0: http://www.apache.org/licenses/LICENSE-2.0)
     ----------------------------------------------------------------------------
 */
-#include <trilobite/xtest.h>
+#include <trilobite/xmock/inject.h>
+#include <stdio.h>
 
-//
-// XUNIT-GROUP: list of test groups for the runner
-//
-extern void xmock_behav_group(XUnitRunner *runner); 
-extern void xmock_inject_group(XUnitRunner *runner); 
-extern void xmock_spies_group(XUnitRunner *runner); 
-extern void xmock_fakes_group(XUnitRunner *runner); 
-extern void xmock_stubs_group(XUnitRunner *runner); 
+int main() {
+    // Create a mock instance of XMockDependency
+    XMockDependency* mockDependency = xmock_inject_create_dependency();
 
-//
-// XUNIT-TEST RUNNER
-//
-int main(int argc, char **argv) {
-    XUnitRunner runner = XTEST_RUNNER_START(argc, argv);
+    // Set properties for the mocked dependency
+    xmock_inject_set_dependency_properties(mockDependency, 5);
 
-    xmock_behav_group (&runner);
-    xmock_inject_group(&runner);
-    xmock_spies_group (&runner);
-    xmock_fakes_group (&runner);
-    xmock_stubs_group (&runner);
+    // Create a mock instance of XMockSystem with the mocked dependency
+    XMockSystem* mockSystem = xmock_inject_create_system(mockDependency);
 
-    return XTEST_RUNNER_END(runner);
+    // Perform a mock operation using the mocked dependency
+    int result = xmock_inject_perform_operation(mockSystem);
+    printf("Mock Operation Result: %d\n", result);
+
+    // Destroy the mock system and the mocked dependency
+    xmock_inject_destroy_system(mockSystem);
+    xmock_inject_destroy_dependency(mockDependency);
+
+    return 0;
 } // end of func

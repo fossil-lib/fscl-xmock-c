@@ -1,4 +1,6 @@
-code = files('module.c')
+code = files(
+    'spy.c', 'fake.c', 'stub.c',
+    'behavior.c', 'inject.c')
 
 lib = library('trilo-xmock-c',
     code,

@@ -1,10 +1,10 @@
 /*  ----------------------------------------------------------------------------
-    File: xunit_runner.c
+    File: demo.c
 
     Description:
-    This test file contains unit tests for the various functions and utilities provided
-    by the Trilobite Stdlib. These tests ensure the correctness and reliability of the
-    library's components and demonstrate their intended usage.
+    This demo file serves as a showcase of the Trilobite Stdlib in action. It provides
+    example code snippets and usage scenarios to help users understand how to leverage
+    the library's features and functions in their own projects.
 
     Author: Michael Gene Brockus (Dreamer)
     Email: michaelbrockus@gmail.com
@@ -29,28 +29,24 @@
     (Apache License 2.0: http://www.apache.org/licenses/LICENSE-2.0)
     ----------------------------------------------------------------------------
 */
-#include <trilobite/xtest.h>
+#include <trilobite/xmock/spy.h>
+#include <stdio.h>
 
-//
-// XUNIT-GROUP: list of test groups for the runner
-//
-extern void xmock_behav_group(XUnitRunner *runner); 
-extern void xmock_inject_group(XUnitRunner *runner); 
-extern void xmock_spies_group(XUnitRunner *runner); 
-extern void xmock_fakes_group(XUnitRunner *runner); 
-extern void xmock_stubs_group(XUnitRunner *runner); 
+int main() {
+    // Create a mock instance of XMockSpy
+    XMockSpy* mockSpy = xmock_spy_create();
 
-//
-// XUNIT-TEST RUNNER
-//
-int main(int argc, char **argv) {
-    XUnitRunner runner = XTEST_RUNNER_START(argc, argv);
+    // Record some calls in the mock spy
+    xmock_spy_record_call(mockSpy);
+    xmock_spy_record_call(mockSpy);
+    xmock_spy_record_call(mockSpy);
 
-    xmock_behav_group (&runner);
-    xmock_inject_group(&runner);
-    xmock_spies_group (&runner);
-    xmock_fakes_group (&runner);
-    xmock_stubs_group (&runner);
+    // Get and print the call count from the mock spy
+    int callCount = xmock_spy_get_call_count(mockSpy);
+    printf("Number of Calls Recorded: %d\n", callCount);
 
-    return XTEST_RUNNER_END(runner);
+    // Destroy the mock spy
+    xmock_spy_destroy(mockSpy);
+
+    return 0;
 } // end of func

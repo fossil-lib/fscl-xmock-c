@@ -29,25 +29,26 @@
     (Apache License 2.0: http://www.apache.org/licenses/LICENSE-2.0)
     ----------------------------------------------------------------------------
 */
-#include <trilobite/module.h>
+#include <trilobite/xmock/behavior.h>
 #include <stdio.h>
 
 int main() {
-    int result = add(5, 3);
+    // Create a mock instance of XMockBehavior
+    XMockBehavior* mockBehavior = xmock_behavior_create();
 
-    if (result == 8) {
-        printf("add() test passed!\n");
-    } else {
-        printf("add() test failed. Expected: 8, Got: %d\n", result);
-    } // end statment
+    // Set the expected call count for behavior verification
+    xmock_behavior_expect_call_count(mockBehavior, 3);
 
-    result = subtract(5, 3);
+    // Record some calls in the mock behavior
+    xmock_behavior_record_call(mockBehavior);
+    xmock_behavior_record_call(mockBehavior);
+    xmock_behavior_record_call(mockBehavior);
 
-    if (result == 2) {
-        printf("subtract() test passed!\n");
-    } else {
-        printf("subtract() test failed. Expected: 2, Got: %d\n", result);
-    } // end statment
+    // Verify that the expected calls match the actual calls
+    xmock_behavior_verify(mockBehavior);
+
+    // Destroy the mock behavior
+    xmock_behavior_destroy(mockBehavior);
 
     return 0;
 } // end of func

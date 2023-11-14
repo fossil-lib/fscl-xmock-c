@@ -3,7 +3,10 @@ if get_option('with_test').enabled()
         dependency('trilo-xtest-c')
     ]
 
-    test_source = files('xtest_cases.c', 'xunit_runner.c')
+    test_source = files(
+        'xtest_stub.c',     'xtest_inject.c',
+        'xtest_spy.c',      'xtest_fake.c',
+        'xtest_behavior.c', 'xunit_runner.c')
 
     test('Execute project Xunit tests', 
         executable('xrunner', test_source,
