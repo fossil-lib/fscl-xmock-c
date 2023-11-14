@@ -34,21 +34,21 @@
 
 int main() {
     // Create a mock instance of XMockDependency
-    XMockDependency* mockDependency = xmock_inject_create_dependency_mock();
+    XMockDependency* mockDependency = xmock_inject_create_dependency();
 
     // Set properties for the mocked dependency
-    xmock_inject_set_dependency_properties_mock(mockDependency, 5);
+    xmock_inject_set_dependency_properties(mockDependency, 5);
 
     // Create a mock instance of XMockSystem with the mocked dependency
-    XMockSystem* mockSystem = xmock_inject_create_system_mock(mockDependency);
+    XMockSystem* mockSystem = xmock_inject_create_system(mockDependency);
 
     // Perform a mock operation using the mocked dependency
-    int result = xmock_inject_perform_operation_mock(mockSystem);
+    int result = xmock_inject_perform_operation(mockSystem);
     printf("Mock Operation Result: %d\n", result);
 
     // Destroy the mock system and the mocked dependency
-    xmock_inject_destroy_system_mock(mockSystem);
-    xmock_inject_destroy_dependency_mock(mockDependency);
+    xmock_inject_destroy_system(mockSystem);
+    xmock_inject_destroy_dependency(mockDependency);
 
     return 0;
 } // end of func
