@@ -34,11 +34,13 @@
 
 #include <trilobite/xmock.h> // library under test
 
+XMOCK_FUNC_DEF(int, mock_function, int);
+XMOCK_TYPE_ALIAS(MyAlias, int);
+XMOCK_STRUCT_DEF(MyStruct, int member);
+
+
 // Test for XMOCK_FUNC_DEF macro
 XTEST_CASE(test_xmock_func_def) {
-    // Arrange
-    XMOCK_FUNC_DEF(int, mock_function, int);
-
     // Act
     int result = xmock_mock_function(42);
 
@@ -48,9 +50,6 @@ XTEST_CASE(test_xmock_func_def) {
 
 // Test for XMOCK_TYPE_ALIAS macro
 XTEST_CASE(test_xmock_type_alias) {
-    // Arrange
-    XMOCK_TYPE_ALIAS(MyAlias, int);
-
     // Act
     MyAlias aliasResult = xmock_MyAlias();
 
@@ -60,9 +59,6 @@ XTEST_CASE(test_xmock_type_alias) {
 
 // Test for XMOCK_STRUCT_DEF macro
 XTEST_CASE(test_xmock_struct_def) {
-    // Arrange
-    XMOCK_STRUCT_DEF(MyStruct, int member);
-
     // Act
     MyStruct myStruct;
     myStruct.member = 42;
