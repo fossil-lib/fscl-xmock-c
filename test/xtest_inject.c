@@ -87,7 +87,7 @@ XTEST_CASE(test_xmock_inject_create_system_and_perform_operation) {
 //
 // XUNIT-GROUP: a group of test cases from the current test file
 //
-void basic_group(XUnitRunner *runner) {
+void xmock_inject_group(XUnitRunner *runner) {
     XTEST_RUN_UNIT(test_xmock_inject_create_dependency,                   runner);
     XTEST_RUN_UNIT(test_xmock_inject_set_dependency_properties,           runner);
     XTEST_RUN_UNIT(test_xmock_inject_create_system_and_perform_operation, runner);

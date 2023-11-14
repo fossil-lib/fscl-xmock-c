@@ -82,7 +82,7 @@ XTEST_CASE(xmock_fake_destroy_object) {
 //
 // XUNIT-GROUP: a group of test cases from the current test file
 //
-void basic_group(XUnitRunner *runner) {
+void xmock_fakes_group(XUnitRunner *runner) {
     XTEST_RUN_UNIT(xmock_fake_create_object,           runner);
     XTEST_RUN_UNIT(xmock_fake_set_return_value_object, runner);
     XTEST_RUN_UNIT(xmock_fake_record_call_object,      runner);

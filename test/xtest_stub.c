@@ -81,7 +81,7 @@ XTEST_CASE(test_xmock_stub_destroy) {
 //
 // XUNIT-GROUP: a group of test cases from the current test file
 //
-void basic_group(XUnitRunner *runner) {
+void xmock_stubs_group(XUnitRunner *runner) {
     XTEST_RUN_UNIT(test_xmock_stub_create,           runner);
     XTEST_RUN_UNIT(test_xmock_stub_set_get_response, runner);
     XTEST_RUN_UNIT(test_xmock_stub_destroy,          runner);

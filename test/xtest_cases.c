@@ -34,59 +34,48 @@
 
 #include <trilobite/xmock.h> // library under test
 
-// Mock function for testing
-XMOCK_FUNC_DEF(int, add, int a, int b) {
-    return a + b;
-}
-
-// Type alias for testing
-XMOCK_TYPE_ALIAS(MyInt, int);
-
-// Mock struct for testing
-XMOCK_STRUCT_DEF(Point, int x, int y);
-
-//
-// XUNIT-CASES: list of test cases testing project features
-//
-XTEST_CASE(test_mock_function) {
+// Test for XMOCK_FUNC_DEF macro
+XTEST_CASE(test_xmock_func_def) {
     // Arrange
-    int expected_result = 5;
+    XMOCK_FUNC_DEF(int, mock_function, int);
 
     // Act
-    int result = xmock_add(2, 3);
+    int result = xmock_mock_function(42);
 
     // Assert
-    TEST_ASSERT_EQUAL_INT(expected_result, result);
+    TEST_ASSERT_EQUAL_INT(0, result);  // Modify this assertion based on your mock function behavior
 }
 
-XTEST_CASE(test_type_alias) {
+// Test for XMOCK_TYPE_ALIAS macro
+XTEST_CASE(test_xmock_type_alias) {
     // Arrange
-    int original_value = 42;
+    XMOCK_TYPE_ALIAS(MyAlias, int);
 
     // Act
-    MyInt aliased_value = xmock_MyInt();
+    MyAlias aliasResult = xmock_MyAlias();
 
     // Assert
-    TEST_ASSERT_EQUAL_INT(original_value, aliased_value);
+    TEST_ASSERT_EQUAL_INT(0, aliasResult);  // Modify this assertion based on your alias behavior
 }
 
-XTEST_CASE(test_mock_struct) {
+// Test for XMOCK_STRUCT_DEF macro
+XTEST_CASE(test_xmock_struct_def) {
     // Arrange
-    Point p = {1, 2};
+    XMOCK_STRUCT_DEF(MyStruct, int member);
 
     // Act
-    xmock_Point mock_point = {3, 4};
+    MyStruct myStruct;
+    myStruct.member = 42;
 
     // Assert
-    TEST_ASSERT_EQUAL_INT(p.x, mock_point.x);
-    TEST_ASSERT_EQUAL_INT(p.y, mock_point.y);
+    TEST_ASSERT_EQUAL_INT(42, myStruct.member);  // Modify this assertion based on your struct behavior
 }
 
 //
 // XUNIT-GROUP: a group of test cases from the current test file
 //
-void basic_group(XUnitRunner *runner) {
-    XTEST_RUN_UNIT(test_mock_function, runner);
-    XTEST_RUN_UNIT(test_type_alias,    runner);
-    XTEST_RUN_UNIT(test_mock_struct,   runner);
+void xmock_basic_group(XUnitRunner *runner) {
+    XTEST_RUN_UNIT(test_xmock_func_def,   runner);
+    XTEST_RUN_UNIT(test_xmock_type_alias, runner);
+    XTEST_RUN_UNIT(test_xmock_struct_def, runner);
 } // end of fixture

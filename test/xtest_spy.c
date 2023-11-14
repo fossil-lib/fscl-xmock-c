@@ -72,7 +72,7 @@ XTEST_CASE(test_xmock_spy_destroy) {
 //
 // XUNIT-GROUP: a group of test cases from the current test file
 //
-void basic_group(XUnitRunner *runner) {
+void xmock_spies_group(XUnitRunner *runner) {
     XTEST_RUN_UNIT(test_xmock_spy_create,                    runner);
     XTEST_RUN_UNIT(test_xmock_spy_record_and_get_call_count, runner);
     XTEST_RUN_UNIT(test_xmock_spy_destroy,                   runner);
