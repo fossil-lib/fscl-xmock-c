@@ -61,7 +61,7 @@ XTEST_CASE(test_xmock_spy_record_and_get_call_count) {
 // Test case for xmock_spy_destroy
 XTEST_CASE(test_xmock_spy_destroy) {
     XMockSpy* spy = xmock_spy_create();
-    TEST_ASSERT_NOT_NULL(spy);
+    TEST_ASSERT_NOT_NULL_PTR(spy);
 
     xmock_spy_destroy(spy);
 

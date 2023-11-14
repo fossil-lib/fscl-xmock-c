@@ -39,7 +39,7 @@
 //
 XTEST_CASE(xmock_fake_create_object) {
     XMockFake* fake = xmock_fake_create();
-    TEST_ASSERT_NOT_NULL(fake);
+    TEST_ASSERT_NOT_NULL_PTR(fake);
     xmock_fake_destroy(fake);
 }
 
@@ -75,8 +75,6 @@ XTEST_CASE(xmock_fake_get_return_value_object) {
 XTEST_CASE(xmock_fake_destroy_object) {
     XMockFake* fake = xmock_fake_create();
     xmock_fake_destroy(fake);
-    // Ensure no memory leaks or crashes during destruction
-    TEST_IGNORE_MESSAGE("Memory has been freed successfully");
 }
 
 //

@@ -41,7 +41,7 @@
 // Test for xmock_behavior_create
 XTEST_CASE(xmock_behavior_create_object) {
     XMockBehavior* behavior = xmock_behavior_create();
-    TEST_ASSERT_NOT_NULL(behavior);
+    TEST_ASSERT_NOT_NULL_PTR(behavior);
     xmock_behavior_destroy(behavior);
 }
 
