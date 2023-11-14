@@ -4,6 +4,4 @@ revision = main
 
 [provide]
 trilo-xtest-cpp = trilo_xtest_c_dep
-trilo-xmock-cpp = trilo_xmock_c_dep
 trilo-xtest-c = trilo_xtest_c_dep
-trilo-xmock-c = trilo_xmock_c_dep
