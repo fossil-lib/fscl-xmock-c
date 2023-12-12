@@ -33,34 +33,36 @@
 #include <stdio.h>
 #include <string.h>
 
-// Define platform-specific variables
 #ifdef _WIN32
     #include <windows.h>
     HANDLE original_stdout;
 #else
+    #include <unistd.h>
+    #include <fcntl.h>
     int original_stdout;
+    int pipe_fd[2];
 #endif
 
-// Internal variables
 static char captured_output[4096];
 static int output_capture_enabled = 0;
 
 void xmock_io_setup(void) {
-    // Platform-specific setup
     #ifdef _WIN32
         original_stdout = GetStdHandle(STD_OUTPUT_HANDLE);
     #else
         original_stdout = dup(fileno(stdout));
+        pipe(pipe_fd);
     #endif
 } // end of func
 
 void xmock_io_teardown(void) {
-    // Platform-specific teardown
     #ifdef _WIN32
         SetStdHandle(STD_OUTPUT_HANDLE, original_stdout);
     #else
         dup2(original_stdout, fileno(stdout));
         close(original_stdout);
+        close(pipe_fd[0]);
+        close(pipe_fd[1]);
     #endif
 } // end of func
 
@@ -68,37 +70,33 @@ void xmock_io_capture_output(void) {
     memset(captured_output, 0, sizeof(captured_output));
     output_capture_enabled = 1;
 
-    // Redirect stdout to a buffer
     #ifdef _WIN32
         HANDLE hCaptureFile = CreateFile("CONOUT$", GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
         SetStdHandle(STD_OUTPUT_HANDLE, hCaptureFile);
     #else
-        freopen("/dev/null", "w", stdout);
+        dup2(pipe_fd[1], fileno(stdout));
+        close(pipe_fd[1]);
     #endif
 } // end of func
 
 const char* xmock_io_get_output(void) {
     output_capture_enabled = 0;
 
-    // Copy the captured output
     #ifdef _WIN32
         DWORD bytesRead;
         ReadFile(GetStdHandle(STD_OUTPUT_HANDLE), captured_output, sizeof(captured_output), &bytesRead, NULL);
     #else
-        fseek(stdout, 0, SEEK_END);
-        long size = ftell(stdout);
-        fseek(stdout, 0, SEEK_SET);
-        (void)fread(captured_output, 1, size, stdout);
+        read(pipe_fd[0], captured_output, sizeof(captured_output));
     #endif
 
     return captured_output;
 } // end of func
 
 void xmock_io_restore_output(void) {
-    // Restore original stdout
     #ifdef _WIN32
         SetStdHandle(STD_OUTPUT_HANDLE, original_stdout);
     #else
         dup2(original_stdout, fileno(stdout));
+        close(original_stdout);
     #endif
 } // end of func
