@@ -8,7 +8,7 @@
 
     Author: Michael Gene Brockus (Dreamer)
     Email: michaelbrockus@gmail.com
-    Website: [Trilobite Coder Blog](https://trilobite.code.blog)
+    Website: [Trilobite Coder Blog](https://trilobite.home.blog)
 
     Project: Trilobite Stdlib
 
@@ -48,7 +48,7 @@ int main() {
     xmock_behavior_verify(mockBehavior);
 
     // Destroy the mock behavior
-    xmock_behavior_destroy(mockBehavior);
+    xmock_behavior_erase(mockBehavior);
 
     return 0;
 } // end of func
