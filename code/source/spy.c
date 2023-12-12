@@ -8,7 +8,7 @@
 
     Author: Michael Gene Brockus (Dreamer)
     Email: michaelbrockus@gmail.com
-    Website: [Trilobite Coder Blog](https://trilobite.code.blog)
+    Website: [Trilobite Coder Blog](https://trilobite.home.blog)
 
     Project: Trilobite Stdlib
 
@@ -64,6 +64,6 @@ int xmock_spy_get_call_count(XMockSpy* spy) {
 } // end of func
 
 // Function to clean up and free the memory used by the spy structure
-void xmock_spy_destroy(XMockSpy* spy) {
+void xmock_spy_erase(XMockSpy* spy) {
     free(spy);
 } // end of func

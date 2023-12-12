@@ -8,7 +8,7 @@
 
     Author: Michael Gene Brockus (Dreamer)
     Email: michaelbrockus@gmail.com
-    Website: [Trilobite Coder Blog](https://trilobite.code.blog)
+    Website: [Trilobite Coder Blog](https://trilobite.home.blog)
 
     Project: Trilobite Stdlib
 
@@ -86,6 +86,6 @@ void xmock_behavior_verify(XMockBehavior* behavior) {
 } // end of func
 
 // Function to clean up and free the memory used by behavior verification
-void xmock_behavior_destroy(XMockBehavior* behavior) {
+void xmock_behavior_erase(XMockBehavior* behavior) {
     free(behavior);
 } // end of func

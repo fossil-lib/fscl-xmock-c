@@ -8,7 +8,7 @@
 
     Author: Michael Gene Brockus (Dreamer)
     Email: michaelbrockus@gmail.com
-    Website: [Trilobite Coder Blog](https://trilobite.code.blog)
+    Website: [Trilobite Coder Blog](https://trilobite.home.blog)
 
     Project: Trilobite Stdlib
 
@@ -85,6 +85,6 @@ int xmock_fake_get_return_value(XMockFake* fake) {
 } // end of func
 
 // Function to clean up and free the memory used by the fake function
-void xmock_fake_destroy(XMockFake* fake) {
+void xmock_fake_erase(XMockFake* fake) {
     free(fake);
 } // end of func
