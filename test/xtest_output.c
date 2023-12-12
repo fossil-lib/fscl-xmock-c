@@ -29,30 +29,35 @@
     (Apache License 2.0: http://www.apache.org/licenses/LICENSE-2.0)
     ----------------------------------------------------------------------------
 */
-#include <trilobite/xtest.h>
+#include <trilobite/xtest.h>   // basic test tools
+#include <trilobite/xassert.h> // extra asserts
+
+#include <trilobite/xmock/output.h> // library under test
+#include <stdio.h>
 
 //
-// XUNIT-GROUP: list of test groups for the runner
+// XUNIT-CASES: list of test cases testing project features
 //
-extern void xmock_output_group(XUnitRunner *runner);
-extern void xmock_behav_group(XUnitRunner *runner); 
-extern void xmock_inject_group(XUnitRunner *runner); 
-extern void xmock_spies_group(XUnitRunner *runner); 
-extern void xmock_fakes_group(XUnitRunner *runner); 
-extern void xmock_stubs_group(XUnitRunner *runner); 
+XTEST_CASE(test_xmock_io_capture_and_restore_output) {
+    // Arrange
+    xmock_io_setup();
+    xmock_io_capture_output();
+
+    // Act
+    printf("Test Output");
+
+    // Assert
+    const char* captured_output = xmock_io_get_output();
+    TEST_ASSERT_EQUAL_STRING("Test Output", captured_output);
+
+    // Restore and teardown
+    xmock_io_restore_output();
+    xmock_io_teardown();
+}
 
 //
-// XUNIT-TEST RUNNER
+// XUNIT-GROUP: a group of test cases from the current test file
 //
-int main(int argc, char **argv) {
-    XUnitRunner runner = XTEST_RUNNER_START(argc, argv);
-
-    xmock_output_group(&runner);
-    xmock_behav_group (&runner);
-    xmock_inject_group(&runner);
-    xmock_spies_group (&runner);
-    xmock_fakes_group (&runner);
-    xmock_stubs_group (&runner);
-
-    return XTEST_RUNNER_END(runner);
-} // end of func
+void xmock_output_group(XUnitRunner *runner) {
+    XTEST_RUN_UNIT(test_xmock_io_capture_and_restore_output, runner);
+} // end of fixture
