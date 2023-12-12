@@ -35,6 +35,7 @@
 
 // Define platform-specific variables
 #ifdef _WIN32
+    #include <windows.h>
     HANDLE original_stdout;
 #else
     int original_stdout;
@@ -72,7 +73,7 @@ void xmock_io_capture_output(void) {
         HANDLE hCaptureFile = CreateFile("CONOUT$", GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
         SetStdHandle(STD_OUTPUT_HANDLE, hCaptureFile);
     #else
-        (void)freopen("/dev/null", "w", stdout);
+        freopen("/dev/null", "w", stdout);
     #endif
 } // end of func
 
