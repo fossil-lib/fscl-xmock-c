@@ -6,7 +6,7 @@
    Project: Trilobite Stdlib
    Author: Michael Gene Brockus (Dreamer)
    Email: michaelbrockus@gmail.com
-   Website: [Trilobite Coder Blog](https://trilobite.code.blog)
+   Website: [Trilobite Coder Blog](https://trilobite.home.blog)
 
    Trilobite Stdlib is designed to provide a robust set of functionalities that can be
    incorporated into various projects. The utilities included in this library aim to optimize
@@ -94,7 +94,7 @@ int xmock_stub_get_response(XMockStub* stub);
  *
  * @param stub  A pointer to the XMockStub instance to destroy.
  */
-void xmock_stub_destroy(XMockStub* stub);
+void xmock_stub_erase(XMockStub* stub);
 
 #ifdef __cplusplus
 }

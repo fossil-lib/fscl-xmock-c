@@ -6,7 +6,7 @@
    Project: Trilobite Stdlib
    Author: Michael Gene Brockus (Dreamer)
    Email: michaelbrockus@gmail.com
-   Website: [Trilobite Coder Blog](https://trilobite.code.blog)
+   Website: [Trilobite Coder Blog](https://trilobite.home.blog)
 
    Trilobite Stdlib is designed to provide a robust set of functionalities that can be
    incorporated into various projects. The utilities included in this library aim to optimize
