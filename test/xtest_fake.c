@@ -8,7 +8,7 @@
 
     Author: Michael Gene Brockus (Dreamer)
     Email: michaelbrockus@gmail.com
-    Website: [Trilobite Coder Blog](https://trilobite.code.blog)
+    Website: [Trilobite Coder Blog](https://trilobite.home.blog)
 
     Project: Trilobite Stdlib
 
@@ -40,21 +40,21 @@
 XTEST_CASE(xmock_fake_create_object) {
     XMockFake* fake = xmock_fake_create();
     TEST_ASSERT_NOT_NULL_PTR(fake);
-    xmock_fake_destroy(fake);
+    xmock_fake_erase(fake);
 }
 
 XTEST_CASE(xmock_fake_set_return_value_object) {
     XMockFake* fake = xmock_fake_create();
     xmock_fake_set_return_value(fake, 42);
     TEST_ASSERT_EQUAL_INT(42, xmock_fake_get_return_value(fake));
-    xmock_fake_destroy(fake);
+    xmock_fake_erase(fake);
 }
 
 XTEST_CASE(xmock_fake_record_call_object) {
     XMockFake* fake = xmock_fake_create();
     xmock_fake_record_call(fake);
     TEST_ASSERT_EQUAL_INT(1, xmock_fake_get_call_count(fake));
-    xmock_fake_destroy(fake);
+    xmock_fake_erase(fake);
 }
 
 XTEST_CASE(xmock_fake_get_call_count_object) {
@@ -62,29 +62,29 @@ XTEST_CASE(xmock_fake_get_call_count_object) {
     xmock_fake_record_call(fake);
     xmock_fake_record_call(fake);
     TEST_ASSERT_EQUAL_INT(2, xmock_fake_get_call_count(fake));
-    xmock_fake_destroy(fake);
+    xmock_fake_erase(fake);
 }
 
 XTEST_CASE(xmock_fake_get_return_value_object) {
     XMockFake* fake = xmock_fake_create();
     xmock_fake_set_return_value(fake, 42);
     TEST_ASSERT_EQUAL_INT(42, xmock_fake_get_return_value(fake));
-    xmock_fake_destroy(fake);
+    xmock_fake_erase(fake);
 }
 
-XTEST_CASE(xmock_fake_destroy_object) {
+XTEST_CASE(xmock_fake_erase_object) {
     XMockFake* fake = xmock_fake_create();
-    xmock_fake_destroy(fake);
+    xmock_fake_erase(fake);
 }
 
 //
 // XUNIT-GROUP: a group of test cases from the current test file
 //
-void xmock_fakes_group(XUnitRunner *runner) {
+XTEST_GROUP_DEFINE(xmock_fakes_group) {
     XTEST_RUN_UNIT(xmock_fake_create_object,           runner);
     XTEST_RUN_UNIT(xmock_fake_set_return_value_object, runner);
     XTEST_RUN_UNIT(xmock_fake_record_call_object,      runner);
     XTEST_RUN_UNIT(xmock_fake_get_call_count_object,   runner);
     XTEST_RUN_UNIT(xmock_fake_get_return_value_object, runner);
-    XTEST_RUN_UNIT(xmock_fake_destroy_object,          runner);
+    XTEST_RUN_UNIT(xmock_fake_erase_object,          runner);
 } // end of fixture

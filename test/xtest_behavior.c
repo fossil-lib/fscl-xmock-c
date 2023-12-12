@@ -8,7 +8,7 @@
 
     Author: Michael Gene Brockus (Dreamer)
     Email: michaelbrockus@gmail.com
-    Website: [Trilobite Coder Blog](https://trilobite.code.blog)
+    Website: [Trilobite Coder Blog](https://trilobite.home.blog)
 
     Project: Trilobite Stdlib
 
@@ -42,7 +42,7 @@
 XTEST_CASE(xmock_behavior_create_object) {
     XMockBehavior* behavior = xmock_behavior_create();
     TEST_ASSERT_NOT_NULL_PTR(behavior);
-    xmock_behavior_destroy(behavior);
+    xmock_behavior_erase(behavior);
 }
 
 // Test for xmock_behavior_expect_call_count and xmock_behavior_verify
@@ -61,7 +61,7 @@ XTEST_CASE(xmock_behavior_expect_and_verify) {
     // Verify that the expected calls match the actual calls
     xmock_behavior_verify(behavior);
 
-    xmock_behavior_destroy(behavior);
+    xmock_behavior_erase(behavior);
 }
 
 // Test for xmock_behavior_expect_call_count with incorrect number of calls
@@ -77,13 +77,13 @@ XTEST_CASE(xmock_behavior_expect_call_count_mismatch) {
         xmock_behavior_record_call(behavior);
     }
 
-    xmock_behavior_destroy(behavior);
+    xmock_behavior_erase(behavior);
 }
 
 //
 // XUNIT-GROUP: a group of test cases from the current test file
 //
-void xmock_behav_group(XUnitRunner *runner) {
+XTEST_GROUP_DEFINE(xmock_behav_group) {
     XTEST_RUN_UNIT(xmock_behavior_create_object, runner);
     XTEST_RUN_UNIT(xmock_behavior_expect_and_verify, runner);
     XTEST_RUN_UNIT(xmock_behavior_expect_call_count_mismatch, runner);

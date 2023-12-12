@@ -8,7 +8,7 @@
 
     Author: Michael Gene Brockus (Dreamer)
     Email: michaelbrockus@gmail.com
-    Website: [Trilobite Coder Blog](https://trilobite.code.blog)
+    Website: [Trilobite Coder Blog](https://trilobite.home.blog)
 
     Project: Trilobite Stdlib
 
@@ -46,7 +46,7 @@ XTEST_CASE(test_xmock_stub_create) {
     TEST_ASSERT_NOT_NULL_PTR(stub);
 
     // Clean up
-    xmock_stub_destroy(stub);
+    xmock_stub_erase(stub);
 }
 
 // Test case for xmock_stub_set_response and xmock_stub_get_response functions
@@ -61,18 +61,18 @@ XTEST_CASE(test_xmock_stub_set_get_response) {
     TEST_ASSERT_EQUAL_INT(42, response);
 
     // Clean up
-    xmock_stub_destroy(stub);
+    xmock_stub_erase(stub);
 }
 
-// Test case for xmock_stub_destroy function
-XTEST_CASE(test_xmock_stub_destroy) {
+// Test case for xmock_stub_erase function
+XTEST_CASE(test_xmock_stub_erase) {
     XMockStub* stub = xmock_stub_create();
 
     // Verify that the created stub is not NULL before destruction
     TEST_ASSERT_NOT_NULL_PTR(stub);
 
     // Destroy the stub
-    xmock_stub_destroy(stub);
+    xmock_stub_erase(stub);
 
     // Verify that the stub is NULL after destruction
     TEST_ASSERT_NULL_PTR(stub);
@@ -81,8 +81,8 @@ XTEST_CASE(test_xmock_stub_destroy) {
 //
 // XUNIT-GROUP: a group of test cases from the current test file
 //
-void xmock_stubs_group(XUnitRunner *runner) {
+XTEST_GROUP_DEFINE(xmock_stubs_group) {
     XTEST_RUN_UNIT(test_xmock_stub_create,           runner);
     XTEST_RUN_UNIT(test_xmock_stub_set_get_response, runner);
-    XTEST_RUN_UNIT(test_xmock_stub_destroy,          runner);
+    XTEST_RUN_UNIT(test_xmock_stub_erase,          runner);
 } // end of fixture

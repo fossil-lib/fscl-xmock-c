@@ -8,7 +8,7 @@
 
     Author: Michael Gene Brockus (Dreamer)
     Email: michaelbrockus@gmail.com
-    Website: [Trilobite Coder Blog](https://trilobite.code.blog)
+    Website: [Trilobite Coder Blog](https://trilobite.home.blog)
 
     Project: Trilobite Stdlib
 
@@ -42,7 +42,7 @@
 XTEST_CASE(test_xmock_spy_create) {
     XMockSpy* spy = xmock_spy_create();
     TEST_ASSERT_NOT_NULL_PTR(spy);
-    xmock_spy_destroy(spy); // Cleanup
+    xmock_spy_erase(spy); // Cleanup
 }
 
 // Test case for xmock_spy_record_call and xmock_spy_get_call_count
@@ -55,15 +55,15 @@ XTEST_CASE(test_xmock_spy_record_and_get_call_count) {
     xmock_spy_record_call(spy);
     TEST_ASSERT_EQUAL_INT(2, xmock_spy_get_call_count(spy));
 
-    xmock_spy_destroy(spy); // Cleanup
+    xmock_spy_erase(spy); // Cleanup
 }
 
-// Test case for xmock_spy_destroy
-XTEST_CASE(test_xmock_spy_destroy) {
+// Test case for xmock_spy_erase
+XTEST_CASE(test_xmock_spy_erase) {
     XMockSpy* spy = xmock_spy_create();
     TEST_ASSERT_NOT_NULL_PTR(spy);
 
-    xmock_spy_destroy(spy);
+    xmock_spy_erase(spy);
 
     // Ensure that spy is destroyed (double destruction should not crash)
     TEST_ASSERT_NULL_PTR(spy);
@@ -72,8 +72,8 @@ XTEST_CASE(test_xmock_spy_destroy) {
 //
 // XUNIT-GROUP: a group of test cases from the current test file
 //
-void xmock_spies_group(XUnitRunner *runner) {
+XTEST_GROUP_DEFINE(xmock_spies_group) {
     XTEST_RUN_UNIT(test_xmock_spy_create,                    runner);
     XTEST_RUN_UNIT(test_xmock_spy_record_and_get_call_count, runner);
-    XTEST_RUN_UNIT(test_xmock_spy_destroy,                   runner);
+    XTEST_RUN_UNIT(test_xmock_spy_erase,                   runner);
 } // end of fixture

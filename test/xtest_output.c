@@ -58,6 +58,6 @@ XTEST_CASE(test_xmock_io_capture_and_restore_output) {
 //
 // XUNIT-GROUP: a group of test cases from the current test file
 //
-void xmock_output_group(XUnitRunner *runner) {
+XTEST_GROUP_DEFINE(xmock_output_group) {
     XTEST_RUN_UNIT(test_xmock_io_capture_and_restore_output, runner);
 } // end of fixture

@@ -34,12 +34,12 @@
 //
 // XUNIT-GROUP: list of test groups for the runner
 //
-extern void xmock_output_group(XUnitRunner *runner);
-extern void xmock_behav_group(XUnitRunner *runner); 
-extern void xmock_inject_group(XUnitRunner *runner); 
-extern void xmock_spies_group(XUnitRunner *runner); 
-extern void xmock_fakes_group(XUnitRunner *runner); 
-extern void xmock_stubs_group(XUnitRunner *runner); 
+XTEST_GROUP_EXTERN(xmock_output_group);
+XTEST_GROUP_EXTERN(xmock_behav_group ); 
+XTEST_GROUP_EXTERN(xmock_inject_group); 
+XTEST_GROUP_EXTERN(xmock_spies_group ); 
+XTEST_GROUP_EXTERN(xmock_fakes_group ); 
+XTEST_GROUP_EXTERN(xmock_stubs_group ); 
 
 //
 // XUNIT-TEST RUNNER
@@ -47,12 +47,12 @@ extern void xmock_stubs_group(XUnitRunner *runner);
 int main(int argc, char **argv) {
     XUnitRunner runner = XTEST_RUNNER_START(argc, argv);
 
-    xmock_output_group(&runner);
-    xmock_behav_group (&runner);
-    xmock_inject_group(&runner);
-    xmock_spies_group (&runner);
-    xmock_fakes_group (&runner);
-    xmock_stubs_group (&runner);
+    XTEST_GROUP_REGISTER(xmock_output_group, runner);
+    XTEST_GROUP_REGISTER(xmock_behav_group,  runner);
+    XTEST_GROUP_REGISTER(xmock_inject_group, runner);
+    XTEST_GROUP_REGISTER(xmock_spies_group,  runner);
+    XTEST_GROUP_REGISTER(xmock_fakes_group,  runner);
+    XTEST_GROUP_REGISTER(xmock_stubs_group,  runner);
 
     return XTEST_RUNNER_END(runner);
 } // end of func
