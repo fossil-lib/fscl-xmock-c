@@ -72,7 +72,7 @@ void xmock_io_capture_output(void) {
         HANDLE hCaptureFile = CreateFile("CONOUT$", GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
         SetStdHandle(STD_OUTPUT_HANDLE, hCaptureFile);
     #else
-        freopen("/dev/null", "w", stdout);
+        (void)freopen("/dev/null", "w", stdout);
     #endif
 } // end of func
 
@@ -87,7 +87,7 @@ const char* xmock_io_get_output(void) {
         fseek(stdout, 0, SEEK_END);
         long size = ftell(stdout);
         fseek(stdout, 0, SEEK_SET);
-        fread(captured_output, 1, size, stdout);
+        (void)fread(captured_output, 1, size, stdout);
     #endif
 
     return captured_output;
