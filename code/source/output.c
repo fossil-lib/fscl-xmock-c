@@ -31,6 +31,7 @@
 */
 #include "trilobite/xmock/output.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #ifdef _WIN32
@@ -39,8 +40,7 @@
 #else
     #include <unistd.h>
     #include <fcntl.h>
-    int original_stdout;
-    int pipe_fd[2];
+    FILE* original_stdout;
 #endif
 
 static char captured_output[4096];
@@ -50,8 +50,7 @@ void xmock_io_setup(void) {
     #ifdef _WIN32
         original_stdout = GetStdHandle(STD_OUTPUT_HANDLE);
     #else
-        original_stdout = dup(fileno(stdout));
-        pipe(pipe_fd);
+        original_stdout = stdout;
     #endif
 } // end of func
 
@@ -59,10 +58,7 @@ void xmock_io_teardown(void) {
     #ifdef _WIN32
         SetStdHandle(STD_OUTPUT_HANDLE, original_stdout);
     #else
-        dup2(original_stdout, fileno(stdout));
-        close(original_stdout);
-        close(pipe_fd[0]);
-        close(pipe_fd[1]);
+        // No teardown needed for popen-based approach
     #endif
 } // end of func
 
@@ -74,8 +70,11 @@ void xmock_io_capture_output(void) {
         HANDLE hCaptureFile = CreateFile("CONOUT$", GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
         SetStdHandle(STD_OUTPUT_HANDLE, hCaptureFile);
     #else
-        dup2(pipe_fd[1], fileno(stdout));
-        close(pipe_fd[1]);
+        FILE* captureFile = fopen("output_capture.txt", "w");
+        if (captureFile != NULL) {
+            original_stdout = stdout;  // Save the original stdout
+            stdout = captureFile;  // Redirect stdout to the file
+        }
     #endif
 } // end of func
 
@@ -83,10 +82,14 @@ const char* xmock_io_get_output(void) {
     output_capture_enabled = 0;
 
     #ifdef _WIN32
-        DWORD bytesRead;
-        ReadFile(GetStdHandle(STD_OUTPUT_HANDLE), captured_output, sizeof(captured_output), &bytesRead, NULL);
+        // Read from the captured file
+        FILE* captureFile = fopen("output_capture.txt", "r");
+        if (captureFile != NULL) {
+            fread(captured_output, 1, sizeof(captured_output), captureFile);
+            fclose(captureFile);
+        }
     #else
-        read(pipe_fd[0], captured_output, sizeof(captured_output));
+        // No additional actions needed for popen-based approach
     #endif
 
     return captured_output;
@@ -96,7 +99,6 @@ void xmock_io_restore_output(void) {
     #ifdef _WIN32
         SetStdHandle(STD_OUTPUT_HANDLE, original_stdout);
     #else
-        dup2(original_stdout, fileno(stdout));
-        close(original_stdout);
+        stdout = original_stdout;  // Restore stdout to the original value
     #endif
 } // end of func
