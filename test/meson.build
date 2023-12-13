@@ -1,6 +1,6 @@
 if get_option('with_test').enabled()
     test_deps = [
-        dependency('trilo-xtest-c')
+        dependency('tscl-xtest-c')
     ]
 
     test_source = files(
@@ -11,5 +11,5 @@ if get_option('with_test').enabled()
 
     test('Execute project Xunit tests', 
         executable('xrunner', test_source,
-        dependencies : [test_deps, trilo_xmock_c_dep]))
+        dependencies : [test_deps, tscl_xmock_c_dep]))
 endif
