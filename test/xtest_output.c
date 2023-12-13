@@ -1,10 +1,10 @@
 /*  ----------------------------------------------------------------------------
-    File: demo.c
+    File: xunit_runner.c
 
     Description:
-    This demo file serves as a showcase of the Trilobite Stdlib in action. It provides
-    example code snippets and usage scenarios to help users understand how to leverage
-    the library's features and functions in their own projects.
+    This test file contains unit tests for the various functions and utilities provided
+    by the Trilobite Stdlib. These tests ensure the correctness and reliability of the
+    library's components and demonstrate their intended usage.
 
     Author: Michael Gene Brockus (Dreamer)
     Email: michaelbrockus@gmail.com
@@ -29,26 +29,35 @@
     (Apache License 2.0: http://www.apache.org/licenses/LICENSE-2.0)
     ----------------------------------------------------------------------------
 */
-#include <trilobite/xmock/behavior.h>
+#include <trilobite/xtest.h>   // basic test tools
+#include <trilobite/xassert.h> // extra asserts
+
+#include <trilobite/xmock/output.h> // library under test
 #include <stdio.h>
 
-int main() {
-    // Create a mock instance of XMockBehavior
-    XMockBehavior* mockBehavior = xmock_behavior_create();
+//
+// XUNIT-CASES: list of test cases testing project features
+//
+XTEST_CASE(test_xmock_io_capture_and_restore_output) {
+    // Arrange
+    xmock_io_setup();
+    xmock_io_capture_output();
 
-    // Set the expected call count for behavior verification
-    xmock_behavior_expect_call_count(mockBehavior, 3);
+    // Act
+    printf("Test Output");
 
-    // Record some calls in the mock behavior
-    xmock_behavior_record_call(mockBehavior);
-    xmock_behavior_record_call(mockBehavior);
-    xmock_behavior_record_call(mockBehavior);
+    // Assert
+    const char* captured_output = xmock_io_get_output();
+    TEST_ASSERT_EQUAL_STRING("Test Output", captured_output);
 
-    // Verify that the expected calls match the actual calls
-    xmock_behavior_verify(mockBehavior);
+    // Restore and teardown
+    xmock_io_restore_output();
+    xmock_io_teardown();
+}
 
-    // Destroy the mock behavior
-    xmock_behavior_erase(mockBehavior);
-
-    return 0;
-} // end of func
+//
+// XUNIT-GROUP: a group of test cases from the current test file
+//
+XTEST_GROUP_DEFINE(xmock_output_group) {
+    XTEST_RUN_UNIT(test_xmock_io_capture_and_restore_output, runner);
+} // end of fixture

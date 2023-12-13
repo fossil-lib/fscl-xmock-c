@@ -8,7 +8,7 @@
 
     Author: Michael Gene Brockus (Dreamer)
     Email: michaelbrockus@gmail.com
-    Website: [Trilobite Coder Blog](https://trilobite.code.blog)
+    Website: [Trilobite Coder Blog](https://trilobite.home.blog)
 
     Project: Trilobite Stdlib
 
@@ -44,7 +44,7 @@ int main() {
     printf("Predefined Response: %d\n", response);
 
     // Destroy the mock stub
-    xmock_stub_destroy(mockStub);
+    xmock_stub_erase(mockStub);
 
     return 0;
 } // end of func

@@ -1,6 +1,6 @@
 code = files(
     'spy.c', 'fake.c', 'stub.c',
-    'behavior.c', 'inject.c')
+    'behavior.c', 'inject.c', 'output.c')
 
 lib = static_library('trilo-xmock-c',
     code,

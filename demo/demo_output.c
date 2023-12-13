@@ -29,26 +29,30 @@
     (Apache License 2.0: http://www.apache.org/licenses/LICENSE-2.0)
     ----------------------------------------------------------------------------
 */
-#include <trilobite/xmock/behavior.h>
+#include <trilobite/xmock/output.h>
 #include <stdio.h>
 
 int main() {
-    // Create a mock instance of XMockBehavior
-    XMockBehavior* mockBehavior = xmock_behavior_create();
+    // Setup xmock_io
+    xmock_io_setup();
 
-    // Set the expected call count for behavior verification
-    xmock_behavior_expect_call_count(mockBehavior, 3);
+    // Capture console output
+    xmock_io_capture_output();
 
-    // Record some calls in the mock behavior
-    xmock_behavior_record_call(mockBehavior);
-    xmock_behavior_record_call(mockBehavior);
-    xmock_behavior_record_call(mockBehavior);
+    // Your code that produces console output
+    printf("Hello, World!\n");
 
-    // Verify that the expected calls match the actual calls
-    xmock_behavior_verify(mockBehavior);
+    // Get the captured output
+    const char* captured_output = xmock_io_get_output();
 
-    // Destroy the mock behavior
-    xmock_behavior_erase(mockBehavior);
+    // Restore original console output
+    xmock_io_restore_output();
+
+    // Teardown xmock_io
+    xmock_io_teardown();
+
+    // Print the captured output (or use it in your tests)
+    printf("Captured Output: %s", captured_output);
 
     return 0;
 } // end of func

@@ -8,7 +8,7 @@
 
     Author: Michael Gene Brockus (Dreamer)
     Email: michaelbrockus@gmail.com
-    Website: [Trilobite Coder Blog](https://trilobite.code.blog)
+    Website: [Trilobite Coder Blog](https://trilobite.home.blog)
 
     Project: Trilobite Stdlib
 
@@ -51,7 +51,7 @@ int main() {
     printf("Predefined Return Value: %d\n", returnValue);
 
     // Destroy the mock fake
-    xmock_fake_destroy(mockFake);
+    xmock_fake_erase(mockFake);
 
     return 0;
 } // end of func

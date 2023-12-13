@@ -37,8 +37,8 @@
 
    (Apache License 2.0: http://www.apache.org/licenses/LICENSE-2.0)
 */
-#ifndef TRILOBITE_XMOCK_SPY_H
-#define TRILOBITE_XMOCK_SPY_H
+#ifndef TRILOBITE_XMOCK_OUTPUT_H
+#define TRILOBITE_XMOCK_OUTPUT_H
 
 #ifdef __cplusplus
 #include <cstdlib>
@@ -53,48 +53,40 @@ extern "C"
 {
 #endif
 
-// Structure to store information about function calls
-typedef struct {
-    int callCount;
-} XMockSpy;
+#ifdef _WIN32
+    // Windows headers
+    #include <windows.h>
+#else
+    // POSIX headers
+    #include <unistd.h>
+#endif
 
 /**
- * @brief Creates a new instance of XMockSpy.
- *
- * This function allocates memory for a new XMockSpy and initializes its fields.
- *
- * @return A pointer to the newly created XMockSpy instance.
+ * @brief Set up the xmock_io library.
  */
-XMockSpy* xmock_spy_create(void);
+void xmock_io_setup(void);
 
 /**
- * @brief Records a call in the XMockSpy.
- *
- * This function is used to record the occurrence of a function call in the spy.
- * It increments the call count of the spy, providing a way to track the number of calls.
- *
- * @param spy A pointer to the XMockSpy in which to record a call.
+ * @brief Tear down the xmock_io library.
  */
-void xmock_spy_record_call(XMockSpy* spy);
+void xmock_io_teardown(void);
 
 /**
- * @brief Gets the call count from the XMockSpy.
- *
- * This function retrieves the total number of recorded calls in the XMockSpy.
- *
- * @param spy A pointer to the XMockSpy from which to retrieve the call count.
- * @return The number of calls recorded in the XMockSpy.
+ * @brief Capture console output for mocking purposes.
  */
-int xmock_spy_get_call_count(XMockSpy* spy);
+void xmock_io_capture_output(void);
 
 /**
- * @brief Destroys an instance of XMockSpy.
- *
- * This function frees the memory allocated for the XMockSpy instance.
- *
- * @param spy A pointer to the XMockSpy instance to destroy.
+ * @brief Get the captured console output.
+ * 
+ * @return A pointer to the captured console output.
  */
-void xmock_spy_erase(XMockSpy* spy);
+const char* xmock_io_get_output(void);
+
+/**
+ * @brief Restore the original console output.
+ */
+void xmock_io_restore_output(void);
 
 #ifdef __cplusplus
 }

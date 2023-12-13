@@ -8,7 +8,7 @@
 
     Author: Michael Gene Brockus (Dreamer)
     Email: michaelbrockus@gmail.com
-    Website: [Trilobite Coder Blog](https://trilobite.code.blog)
+    Website: [Trilobite Coder Blog](https://trilobite.home.blog)
 
     Project: Trilobite Stdlib
 
@@ -46,7 +46,7 @@ int main() {
     printf("Number of Calls Recorded: %d\n", callCount);
 
     // Destroy the mock spy
-    xmock_spy_destroy(mockSpy);
+    xmock_spy_erase(mockSpy);
 
     return 0;
 } // end of func

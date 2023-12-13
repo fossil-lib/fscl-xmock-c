@@ -8,7 +8,7 @@
 
     Author: Michael Gene Brockus (Dreamer)
     Email: michaelbrockus@gmail.com
-    Website: [Trilobite Coder Blog](https://trilobite.code.blog)
+    Website: [Trilobite Coder Blog](https://trilobite.home.blog)
 
     Project: Trilobite Stdlib
 
@@ -66,6 +66,6 @@ int xmock_stub_get_response(XMockStub* stub) {
 } // end of func
 
 // Function to clean up and free the memory used by the stub
-void xmock_stub_destroy(XMockStub* stub) {
+void xmock_stub_erase(XMockStub* stub) {
     free(stub);
 } // end of func

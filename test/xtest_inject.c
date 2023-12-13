@@ -8,7 +8,7 @@
 
     Author: Michael Gene Brockus (Dreamer)
     Email: michaelbrockus@gmail.com
-    Website: [Trilobite Coder Blog](https://trilobite.code.blog)
+    Website: [Trilobite Coder Blog](https://trilobite.home.blog)
 
     Project: Trilobite Stdlib
 
@@ -48,7 +48,7 @@ XTEST_CASE(test_xmock_inject_create_dependency) {
     TEST_ASSERT_NOT_NULL_PTR(dependency);
 
     // Clean up
-    xmock_inject_destroy_dependency(dependency);
+    xmock_inject_erase_dependency(dependency);
 }
 
 XTEST_CASE(test_xmock_inject_set_dependency_properties) {
@@ -63,7 +63,7 @@ XTEST_CASE(test_xmock_inject_set_dependency_properties) {
     TEST_ASSERT_EQUAL_INT(expectedValue, dependency->dependencyValue);
 
     // Clean up
-    xmock_inject_destroy_dependency(dependency);
+    xmock_inject_erase_dependency(dependency);
 }
 
 XTEST_CASE(test_xmock_inject_create_system_and_perform_operation) {
@@ -80,14 +80,14 @@ XTEST_CASE(test_xmock_inject_create_system_and_perform_operation) {
     TEST_ASSERT_EQUAL_INT(expectedResult, result);
 
     // Clean up
-    xmock_inject_destroy_system(system);
-    xmock_inject_destroy_dependency(dependency);
+    xmock_inject_erase_system(system);
+    xmock_inject_erase_dependency(dependency);
 }
 
 //
 // XUNIT-GROUP: a group of test cases from the current test file
 //
-void xmock_inject_group(XUnitRunner *runner) {
+XTEST_GROUP_DEFINE(xmock_inject_group) {
     XTEST_RUN_UNIT(test_xmock_inject_create_dependency,                   runner);
     XTEST_RUN_UNIT(test_xmock_inject_set_dependency_properties,           runner);
     XTEST_RUN_UNIT(test_xmock_inject_create_system_and_perform_operation, runner);

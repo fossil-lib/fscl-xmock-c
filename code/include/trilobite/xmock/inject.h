@@ -6,7 +6,7 @@
    Project: Trilobite Stdlib
    Author: Michael Gene Brockus (Dreamer)
    Email: michaelbrockus@gmail.com
-   Website: [Trilobite Coder Blog](https://trilobite.code.blog)
+   Website: [Trilobite Coder Blog](https://trilobite.home.blog)
 
    Trilobite Stdlib is designed to provide a robust set of functionalities that can be
    incorporated into various projects. The utilities included in this library aim to optimize
@@ -91,7 +91,7 @@ void xmock_inject_set_dependency_properties(XMockDependency* dependency, int val
  *
  * @param dependency  A pointer to the XMockDependency instance to destroy.
  */
-void xmock_inject_destroy_dependency(XMockDependency* dependency);
+void xmock_inject_erase_dependency(XMockDependency* dependency);
 
 /**
  * @brief Creates a new instance of XMockSystem with the injected dependency.
@@ -120,7 +120,7 @@ int xmock_inject_perform_operation(XMockSystem* system);
  *
  * @param system  A pointer to the XMockSystem instance to destroy.
  */
-void xmock_inject_destroy_system(XMockSystem* system);
+void xmock_inject_erase_system(XMockSystem* system);
 
 #ifdef __cplusplus
 }

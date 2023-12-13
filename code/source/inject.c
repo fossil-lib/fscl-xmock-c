@@ -8,7 +8,7 @@
 
     Author: Michael Gene Brockus (Dreamer)
     Email: michaelbrockus@gmail.com
-    Website: [Trilobite Coder Blog](https://trilobite.code.blog)
+    Website: [Trilobite Coder Blog](https://trilobite.home.blog)
 
     Project: Trilobite Stdlib
 
@@ -58,7 +58,7 @@ void xmock_inject_set_dependency_properties(XMockDependency* dependency, int val
 } // end of func
 
 // Function to destroy an instance of the injected dependency
-void xmock_inject_destroy_dependency(XMockDependency* dependency) {
+void xmock_inject_erase_dependency(XMockDependency* dependency) {
     free(dependency);
 } // end of func
 
@@ -92,6 +92,6 @@ int xmock_inject_perform_operation(XMockSystem* system) {
 } // end of func
 
 // Function to destroy an instance of the system under test
-void xmock_inject_destroy_system(XMockSystem* system) {
+void xmock_inject_erase_system(XMockSystem* system) {
     free(system);
 } // end of func

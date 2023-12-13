@@ -8,7 +8,7 @@
 
     Author: Michael Gene Brockus (Dreamer)
     Email: michaelbrockus@gmail.com
-    Website: [Trilobite Coder Blog](https://trilobite.code.blog)
+    Website: [Trilobite Coder Blog](https://trilobite.home.blog)
 
     Project: Trilobite Stdlib
 
@@ -47,8 +47,8 @@ int main() {
     printf("Mock Operation Result: %d\n", result);
 
     // Destroy the mock system and the mocked dependency
-    xmock_inject_destroy_system(mockSystem);
-    xmock_inject_destroy_dependency(mockDependency);
+    xmock_inject_erase_system(mockSystem);
+    xmock_inject_erase_dependency(mockDependency);
 
     return 0;
 } // end of func
