@@ -69,7 +69,7 @@ XTEST_CASE(test_xmock_inject_create_system_and_perform_operation) {
 // XUNIT-GROUP: a group of test cases from the current test file
 //
 XTEST_DEFINE_POOL(xmock_inject_group) {
-    XTEST_RUN_UNIT(test_xmock_inject_create_dependency,                   runner);
-    XTEST_RUN_UNIT(test_xmock_inject_set_dependency_properties,           runner);
-    XTEST_RUN_UNIT(test_xmock_inject_create_system_and_perform_operation, runner);
+    XTEST_RUN_UNIT(test_xmock_inject_create_dependency);
+    XTEST_RUN_UNIT(test_xmock_inject_set_dependency_properties);
+    XTEST_RUN_UNIT(test_xmock_inject_create_system_and_perform_operation);
 } // end of fixture
