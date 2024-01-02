@@ -65,7 +65,7 @@ XTEST_CASE(xmock_behavior_expect_call_count_mismatch) {
 // XUNIT-GROUP: a group of test cases from the current test file
 //
 XTEST_DEFINE_POOL(xmock_behav_group) {
-    XTEST_RUN_UNIT(xmock_behavior_create_object, runner);
-    XTEST_RUN_UNIT(xmock_behavior_expect_and_verify, runner);
-    XTEST_RUN_UNIT(xmock_behavior_expect_call_count_mismatch, runner);
+    XTEST_RUN_UNIT(xmock_behavior_create_object);
+    XTEST_RUN_UNIT(xmock_behavior_expect_and_verify);
+    XTEST_RUN_UNIT(xmock_behavior_expect_call_count_mismatch);
 } // end of fixture
