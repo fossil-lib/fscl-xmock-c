@@ -1,12 +1,8 @@
-# Trilobite XMock Libraries - C
+# Fossil XMock - C
 
-Trilobite Xmock stands as an integral part of the Trilobite Standard Component Libraries (TSCL), a comprehensive framework originating from the laboratory. Tailored to cater to the diverse needs of software testing, Trilobite Xmock is designed with a singular, straightforward objective — to furnish efficient mocks for C and C++ test cases.
+Fossil Standard Component Libraries (FSCL) by Fossil Logic represent the pinnacle of software development, embodying our commitment to quality, security, and practicality. These meticulously curated libraries serve as the cornerstone for crafting cutting-edge applications, offering a foundation built on excellence in code. With FSCL, Fossil Logic empowers developers to seamlessly integrate standardized components that elevate the overall performance and reliability of digital solutions, setting a new standard for software excellence.
 
-This specialized library, housed within the TSCL ecosystem, offers a robust solution for developers seeking reliable and versatile mock functionalities. Whether you are engaged in unit testing, integration testing, or other testing paradigms, Trilobite Xmock integrates seamlessly into your workflow, enabling you to create controlled testing environments for your C and C++ code.
-
-The architecture of Trilobite Xmock is crafted with simplicity in mind, making it accessible for developers across various skill levels. By seamlessly integrating Trilobite Xmock into your testing suite, you gain the ability to mimic complex scenarios, isolate specific components, and streamline the verification of code behavior. This empowers you to write more robust and reliable tests, facilitating a thorough evaluation of your software's functionality.
-
-In summary, Trilobite Xmock, as part of the Trilobite Standard Component Libraries, is a potent tool for enhancing the efficacy of your C and C++ test cases. Its user-friendly design and focus on providing a comprehensive mocking framework make it an invaluable asset for developers striving to achieve excellence in software testing.
+Unleash the power of mock objects and simulated environments with Fossil XMock. This library empowers developers to create realistic simulations for testing, enabling a more controlled and efficient software development lifecycle. Enhance the accuracy of your testing scenarios, leading to the creation of more resilient and adaptable applications.
 
 ## Who is This For?
 
@@ -27,7 +23,7 @@ Before getting started, make sure you have the following installed:
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/trilobite-stdlib/trilo-xmock-c.git
+   git clone https://github.com/fossil-lib/fscl-xmock-c.git
    cd trilo-xmock-c
    ```
 
@@ -48,24 +44,23 @@ Before getting started, make sure you have the following installed:
 
 ## Including the Demo and Running Tests
 
-To include the demo and run tests, you can use the following options when configuring the build:
+To run tests, you can use the following options when configuring the build:
 
-- **Including the Demo**: Add `-Dwith_demo=enabled` when configuring the build.
 - **Running Tests**: Add `-Dwith_test=enabled` when configuring the build.
 
 Example:
 
 ```bash
-meson setup builddir -Dwith_demo=enabled -Dwith_test=enabled
+meson setup builddir -Dwith_test=enabled
 ```
 
 ## Contributing
 
-If you're interested in contributing to this project, please consider opening pull requests or creating issues on the [GitHub repository](https://github.com/trilobite-stdlib/trilo-xmock-c). Be sure to read the documentation on the [project website](https://trilobite.home.blog).
+If you're interested in contributing to this project, please consider opening pull requests or creating issues on the [GitHub repository](https://github.com/fossil-lib/fscl-xmock-c). Be sure to read the documentation on the [project website](https://trilobite.home.blog).
 
 ## Feedback and Support
 
-If you encounter any issues, have questions, or would like to provide feedback, don't hesitate to open an issue on the [GitHub repository](https://github.com/trilobite-stdlib/trilo-xmock-c/issues).
+If you encounter any issues, have questions, or would like to provide feedback, don't hesitate to open an issue on the [GitHub repository](https://github.com/fossil-lib/fscl-xmock-c/issues).
 
 ## License
 
