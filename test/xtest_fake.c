@@ -62,10 +62,10 @@ XTEST_CASE(xmock_fake_erase_object) {
 // XUNIT-GROUP: a group of test cases from the current test file
 //
 XTEST_DEFINE_POOL(xmock_fakes_group) {
-    XTEST_RUN_UNIT(xmock_fake_create_object,           runner);
-    XTEST_RUN_UNIT(xmock_fake_set_return_value_object, runner);
-    XTEST_RUN_UNIT(xmock_fake_record_call_object,      runner);
-    XTEST_RUN_UNIT(xmock_fake_get_call_count_object,   runner);
-    XTEST_RUN_UNIT(xmock_fake_get_return_value_object, runner);
-    XTEST_RUN_UNIT(xmock_fake_erase_object,          runner);
+    XTEST_RUN_UNIT(xmock_fake_create_object);
+    XTEST_RUN_UNIT(xmock_fake_set_return_value_object);
+    XTEST_RUN_UNIT(xmock_fake_record_call_object);
+    XTEST_RUN_UNIT(xmock_fake_get_call_count_object);
+    XTEST_RUN_UNIT(xmock_fake_get_return_value_object);
+    XTEST_RUN_UNIT(xmock_fake_erase_object);
 } // end of fixture
