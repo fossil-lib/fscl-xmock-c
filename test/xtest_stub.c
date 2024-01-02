@@ -63,7 +63,7 @@ XTEST_CASE(test_xmock_stub_erase) {
 // XUNIT-GROUP: a group of test cases from the current test file
 //
 XTEST_DEFINE_POOL(xmock_stubs_group) {
-    XTEST_RUN_UNIT(test_xmock_stub_create,           runner);
-    XTEST_RUN_UNIT(test_xmock_stub_set_get_response, runner);
-    XTEST_RUN_UNIT(test_xmock_stub_erase,          runner);
+    XTEST_RUN_UNIT(test_xmock_stub_create);
+    XTEST_RUN_UNIT(test_xmock_stub_set_get_response);
+    XTEST_RUN_UNIT(test_xmock_stub_erase);
 } // end of fixture
