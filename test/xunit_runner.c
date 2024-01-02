@@ -26,14 +26,14 @@ XTEST_EXTERN_POOL(xmock_stubs_group );
 // XUNIT-TEST RUNNER
 //
 int main(int argc, char **argv) {
-    XUnitRunner runner = XTEST_RUNNER_START(argc, argv);
+    XTEST_CREATE(argc, argv);
 
-    XTEST_IMPORT_POOL(xmock_output_group, runner);
-    XTEST_IMPORT_POOL(xmock_behav_group,  runner);
-    XTEST_IMPORT_POOL(xmock_inject_group, runner);
-    XTEST_IMPORT_POOL(xmock_spies_group,  runner);
-    XTEST_IMPORT_POOL(xmock_fakes_group,  runner);
-    XTEST_IMPORT_POOL(xmock_stubs_group,  runner);
+    XTEST_IMPORT_POOL(xmock_output_group);
+    XTEST_IMPORT_POOL(xmock_behav_group);
+    XTEST_IMPORT_POOL(xmock_inject_group);
+    XTEST_IMPORT_POOL(xmock_spies_group);
+    XTEST_IMPORT_POOL(xmock_fakes_group);
+    XTEST_IMPORT_POOL(xmock_stubs_group);
 
-    return XTEST_RUNNER_END(runner);
+    return XTEST_ERASE();
 } // end of func
