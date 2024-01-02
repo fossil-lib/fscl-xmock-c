@@ -54,7 +54,7 @@ XTEST_CASE(test_xmock_spy_erase) {
 // XUNIT-GROUP: a group of test cases from the current test file
 //
 XTEST_DEFINE_POOL(xmock_spies_group) {
-    XTEST_RUN_UNIT(test_xmock_spy_create,                    runner);
-    XTEST_RUN_UNIT(test_xmock_spy_record_and_get_call_count, runner);
-    XTEST_RUN_UNIT(test_xmock_spy_erase,                   runner);
+    XTEST_RUN_UNIT(test_xmock_spy_create);
+    XTEST_RUN_UNIT(test_xmock_spy_record_and_get_call_count);
+    XTEST_RUN_UNIT(test_xmock_spy_erase);
 } // end of fixture
