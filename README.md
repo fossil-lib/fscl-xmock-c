@@ -21,25 +21,39 @@ Before getting started, make sure you have the following installed:
 
 ## Setting up, Compiling, Installing, and Running the Project
 
-1. **Clone the Repository**:
+1. **Create a Wrap File**:
+
+Create a directory named subprojects in the root directory, next create a file named `fscl-xmock-c.wrap` in the `subprojects` directory of your project with the following content:
+
    ```bash
-   git clone https://github.com/fossil-lib/fscl-xmock-c.git
-   cd trilo-xmock-c
+   # ================ #
+   #  FSCL Wrap File. #
+   # ================ #
+   [wrap-git]
+   url = https://github.com/fossil-lib/fscl-xmock-c.git
+   revision = main
+   
+   [provide]
+   fscl-xmock-c = fscl_xmock_c_dep
    ```
 
-2. **Configure the Build**:
-   ```bash
-   meson setup builddir
+2. **Integrate Wrap File in Meson Build**:
+   ```meson
+   project('my_project', 'c',
+       version : '0.1',
+       default_options : ['warning_level=3'])
+
+   exe = executable('my_project', 'my_project.c',
+       dependencies : dependency('fscl-xmock-c'), # add this line
+       install : true)
+
+   test('basic', exe)
    ```
 
 3. **Compile the Project**:
    ```bash
+   meson setup builddir
    meson compile -C builddir
-   ```
-
-4. **Install the Project**:
-   ```bash
-   meson install -C builddir
    ```
 
 ## Including the Demo and Running Tests
@@ -56,7 +70,7 @@ meson setup builddir -Dwith_test=enabled
 
 ## Contributing
 
-If you're interested in contributing to this project, please consider opening pull requests or creating issues on the [GitHub repository](https://github.com/fossil-lib/fscl-xmock-c). Be sure to read the documentation on the [project website](https://trilobite.home.blog).
+If you're interested in contributing to this project, please consider opening pull requests or creating issues on the [GitHub repository](https://github.com/fossil-lib/fscl-xmock-c).
 
 ## Feedback and Support
 
@@ -69,7 +83,3 @@ This project is licensed under the [Apache License 2.0](LICENSE).
 ---
 
 Thank you for choosing this project with the Meson build system. Happy coding and building amazing projects!
-
-## Contact
-
-If you have questions or want to get in touch regarding programming solutions, you can find a way to contact me on my [website](https://trilobite.home.blog/contact/).
