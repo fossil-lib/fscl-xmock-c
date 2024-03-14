@@ -16,6 +16,19 @@ Description:
 #include <fossil/xmock/output.h> // library under test
 #include <stdio.h>
 
+// Define a buffer for storing printed output
+#define MAX_OUTPUT_SIZE 100
+static char printed_output[MAX_OUTPUT_SIZE];
+
+// Mock function to capture printf output
+int mock_printf(const char *format, ...) {
+    va_list args;
+    va_start(args, format);
+    vsnprintf(printed_output, MAX_OUTPUT_SIZE, format, args);
+    va_end(args);
+    return 0; // Return value of printf doesn't matter for testing
+}
+
 //
 // XUNIT-CASES: list of test cases testing project features
 //
@@ -36,9 +49,75 @@ XTEST_CASE(test_xmock_io_capture_and_restore_output) {
     xmock_io_teardown();
 }
 
+// Test case for scanf mock
+XTEST_CASE(test_xmock_io_scanf) {
+    // Set mock printf function
+    xmock_io_set_printf(mock_printf);
+    // Capture console output
+    xmock_io_capture_output();
+
+    // Set up mock input
+    xmock_io_set_input("42\n");
+
+    int num;
+    xmock_io_scanf("%d", &num);
+
+    TEST_ASSERT_EQUAL_INT(42, num);
+
+    // Clear printed output buffer
+    printed_output[0] = '\0';
+    // Restore original console output
+    xmock_io_restore_output();
+}
+
+// Test case for gets mock
+XTEST_CASE(test_xmock_io_gets) {
+    // Set mock printf function
+    xmock_io_set_printf(mock_printf);
+    // Capture console output
+    xmock_io_capture_output();
+
+    // Set up mock input
+    xmock_io_set_input("Hello\n");
+
+    char buffer[100];
+    xmock_io_gets(buffer);
+
+    TEST_ASSERT_EQUAL_STRING("Hello", buffer);
+
+    // Clear printed output buffer
+    printed_output[0] = '\0';
+    // Restore original console output
+    xmock_io_restore_output();
+}
+
+// Test case for fgets mock
+XTEST_CASE(test_xmock_io_fgets) {
+    // Set mock printf function
+    xmock_io_set_printf(mock_printf);
+    // Capture console output
+    xmock_io_capture_output();
+
+    // Set up mock input
+    xmock_io_set_input("Testing fgets\n");
+
+    char buffer[100];
+    xmock_io_fgets(buffer, 100, stdin);
+
+    TEST_ASSERT_EQUAL_STRING("Testing fgets\n", buffer);
+
+    // Clear printed output buffer
+    printed_output[0] = '\0';
+    // Restore original console output
+    xmock_io_restore_output();
+}
+
 //
 // XUNIT-GROUP: a group of test cases from the current test file
 //
 XTEST_DEFINE_POOL(xmock_output_group) {
     XTEST_RUN_UNIT(test_xmock_io_capture_and_restore_output);
+    XTEST_RUN_UNIT(test_xmock_io_scanf);
+    XTEST_RUN_UNIT(test_xmock_io_gets);
+    XTEST_RUN_UNIT(test_xmock_io_fgets);
 } // end of fixture
