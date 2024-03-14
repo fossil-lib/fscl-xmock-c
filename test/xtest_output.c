@@ -55,15 +55,14 @@ XTEST_CASE(test_xmock_io_scanf) {
     xmock_io_set_printf(mock_printf);
     // Capture console output
     xmock_io_capture_output();
-
     // Set up mock input
-    xmock_io_set_input("42\n");
+    char input[] = "42\n"; // Function pointer cannot be used here
+    xmock_io_set_input(input);
 
     int num;
     xmock_io_scanf("%d", &num);
 
     TEST_ASSERT_EQUAL_INT(42, num);
-
     // Clear printed output buffer
     printed_output[0] = '\0';
     // Restore original console output
@@ -76,15 +75,14 @@ XTEST_CASE(test_xmock_io_gets) {
     xmock_io_set_printf(mock_printf);
     // Capture console output
     xmock_io_capture_output();
-
     // Set up mock input
-    xmock_io_set_input("Hello\n");
+    char input[] = "Hello\n"; // Function pointer cannot be used here
+    xmock_io_set_input(input);
 
     char buffer[100];
     xmock_io_gets(buffer);
 
     TEST_ASSERT_EQUAL_STRING("Hello", buffer);
-
     // Clear printed output buffer
     printed_output[0] = '\0';
     // Restore original console output
@@ -97,15 +95,14 @@ XTEST_CASE(test_xmock_io_fgets) {
     xmock_io_set_printf(mock_printf);
     // Capture console output
     xmock_io_capture_output();
-
     // Set up mock input
-    xmock_io_set_input("Testing fgets\n");
+    char input[] = "Testing fgets\n"; // Function pointer cannot be used here
+    xmock_io_set_input(input);
 
     char buffer[100];
     xmock_io_fgets(buffer, 100, stdin);
 
     TEST_ASSERT_EQUAL_STRING("Testing fgets\n", buffer);
-
     // Clear printed output buffer
     printed_output[0] = '\0';
     // Restore original console output
