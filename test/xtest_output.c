@@ -15,6 +15,7 @@ Description:
 
 #include <fossil/xmock/output.h> // library under test
 #include <stdio.h>
+#include <stdarg.h>
 
 // Define a buffer for storing printed output
 #define MAX_OUTPUT_SIZE 100
