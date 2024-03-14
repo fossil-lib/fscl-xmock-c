@@ -13,7 +13,6 @@ Description:
 #include "fossil/xmock/output.h"
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdarg.h>
 #include <string.h>
 
 #ifdef _WIN32
@@ -84,55 +83,3 @@ void xmock_io_restore_output(void) {
         stdout = original_stdout;  // Restore stdout to the original value
     #endif
 } // end of func
-
-// Function pointer for mocking input
-static char *(*mock_input_func)() = NULL;
-
-// Function to set the mock input function
-void xmock_io_set_input(char *(*input_func)()) {
-    mock_input_func = input_func;
-}
-
-// Function to mock input
-char *xmock_io_get_input() {
-    if (mock_input_func != NULL)
-        return mock_input_func();
-    else {
-        printf("Error: Mock input function is not set.\n");
-        exit(EXIT_FAILURE);
-    }
-}
-
-// Mocking scanf function
-int xmock_io_scanf(const char *format, ...) {
-    va_list args;
-    int result;
-    char *input = xmock_io_get_input();
-
-    va_start(args, format);
-    result = vsscanf(input, format, args);
-    va_end(args);
-
-    return result;
-}
-
-// Mocking gets function
-char *xmock_io_gets(char *str) {
-    char *input = xmock_io_get_input();
-    if (input != NULL) {
-        strcpy(str, input);
-        return str;
-    }
-    return NULL;
-}
-
-// Mocking fgets function
-char *xmock_io_fgets(char *str, int size, FILE *stream) {
-    char *input = xmock_io_get_input();
-    if (input != NULL) {
-        strncpy(str, input, size);
-        return str;
-    }
-    return NULL;
-}
-
