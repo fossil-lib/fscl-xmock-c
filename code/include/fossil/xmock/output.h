@@ -66,7 +66,7 @@ void xmock_io_restore_output(void);
 //
 
 // Function to set the mock input function
-void xmock_io_set_input(char *(*input_func)())'
+void xmock_io_set_input(char *(*input_func)());
 
 // Function to mock input
 char *xmock_io_get_input();
