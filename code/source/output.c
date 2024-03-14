@@ -85,6 +85,9 @@ void xmock_io_restore_output(void) {
     #endif
 } // end of func
 
+// Function pointer for mocking input
+static char *(*mock_input_func)() = NULL;
+
 // Function to set the mock input function
 void xmock_io_set_input(char *(*input_func)()) {
     mock_input_func = input_func;
