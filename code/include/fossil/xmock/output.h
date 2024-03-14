@@ -61,25 +61,6 @@ const char* xmock_io_get_output(void);
  */
 void xmock_io_restore_output(void);
 
-//
-//
-//
-
-// Function to set the mock input function
-void xmock_io_set_input(char *(*input_func)());
-
-// Function to mock input
-char *xmock_io_get_input();
-
-// Mocking scanf function
-int xmock_io_scanf(const char *format, ...);
-
-// Mocking gets function
-char *xmock_io_gets(char *str);
-
-// Mocking fgets function
-char *xmock_io_fgets(char *str, int size, FILE *stream);
-
 #ifdef __cplusplus
 }
 #endif
